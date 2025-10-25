@@ -1,0 +1,23 @@
+/* font-family: "EB Garamond", serif;
+   font-family: "Mali", cursive;
+*/
+
+.header-div {
+    width: 100%;
+}
+
+.app-name-div {
+    padding: 20px;
+    text-align: center;
+    width: 150px;
+}
+
+.app-name {
+    font-family: "EB Garamond", serif;
+}
+
+.app-tagline {
+    font-family: "Mali", cursive;
+    font-style: italic;
+    color: #07076E;
+}
