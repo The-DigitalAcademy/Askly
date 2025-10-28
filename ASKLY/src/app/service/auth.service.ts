@@ -1,37 +1,21 @@
 import { Injectable } from '@angular/core';
 import { user } from '../models/user';
-import { Observable, throwError, of } from 'rxjs';
-import { StorageService } from './storage.service';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  //Keys to access the local storage
-  private readonly KEYS = {
-    USERS: 'users',
-    CURRENT: 'current_user'
-  };
+  //constructor and inject the HttpClient
+  constructor(private readonly http: HttpClient ){ }
 
-  //constructor and inject the storage
-  constructor(private storage: StorageService){ }
+  //accessing the endpoints
+  private readonly url = '/api/users';
 
-  //Helper function to get a user by email
-  getCurrentUser(email: string): user | null {
-    const raw = localStorage.getItem(email);
-    return raw ? JSON.parse(raw) : null;
-  }
-
-  private getUsers(): user[] {
-    return this.storage.load<user[]>(this.KEYS.USERS) || [];
-  }
 
   //register function
   register(newUser: user): Observable<user>{
-    const allUsers = this.getUsers();
-    if(this.getCurrentUser(newUser.email))
-      return throwError(() => new Error('Email already exists'));
-
     const registerUser: user = {
       id: Date.now().toString(),
       email: newUser.email,
@@ -40,24 +24,33 @@ export class AuthService {
       role: newUser.role,
       password: newUser.password
     }
-    allUsers.push(registerUser);
-    this.storage.save(this.KEYS.USERS, allUsers);
-    return of(registerUser);
+
+    return this.http.post<user>(this.url, registerUser);
   }
 
   //login function
   login(email: string, password: string): Observable<user>{
-    const allUsers = this.getUsers();
-    const currUser = allUsers.find(u => u.email === email && u.password === password);
-    if(!currUser)
-      return throwError(() => new Error('Invalid login'));
+    return this.http.get<user[]>('${this.url}?email=${email}&password=${password}').pipe(
+      //@ts-ignore
+      map((users: any) => {
+        if(users.length === 0)
+          throw new Error("User not found");
 
-    this.storage.save(this.KEYS.CURRENT, currUser);
-    return of(currUser);
+        const currUser = users[0];
+        localStorage.setItem('current_user', JSON.stringify(currUser));
+        return currUser;
+      })
+    )
   }
 
   //logout
   logout(): void{
-    return this.storage.remove(this.KEYS.CURRENT);
+     localStorage.removeItem('current_user');
+  }
+
+  //get current user
+  getCurrentUser(): user | null {
+    const data = localStorage.getItem('current_user');
+    return data ? JSON.parse(data) : null;
   }
 }
