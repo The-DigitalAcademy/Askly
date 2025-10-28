@@ -1,0 +1,29 @@
+.navbar {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: white;
+}
+.results-details {
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 2px #07076e94;
+    max-width: 80%;
+    margin: 20px auto;
+}
+.results-details h2 {
+    align-items: center;
+}
+.question-box {
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 2px #07076e1e;;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.question-box ul {
+   align-content: center;
+    
+}
