@@ -13,7 +13,6 @@ export class ResponseService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly auth: AuthService,
     private readonly surveyService: SurveyService
   ) { }
 
@@ -35,6 +34,12 @@ export class ResponseService {
         if(!q?.choices.some(c => c.id === ans.choiceId))
           return throwError(() => new Error('Invalid Error'));
       }
+      const response: Omit<response, 'id' | 'userId'> = {
+        surveyId: surveyID,
+        answers,
+        submittedAt: new Date().toISOString()
+      };
+      return this.http.post<response>(this.url, response);
       })
     )
   }
