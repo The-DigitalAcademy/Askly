@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterPageComponent } from './component/register-page/register-page.component';
+import { FormLogin } from './login-page/component/form-login/form-login';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -12,7 +12,8 @@ import { InMemoryDataService } from './service/in-memory-data.service';
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    FormLogin
   ],
   imports: [
     BrowserModule,
