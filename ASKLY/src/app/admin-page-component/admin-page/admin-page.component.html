@@ -9,16 +9,16 @@
   </div>
 
   <div class="admin-surveys-div">
-    <div class="admin-survey-div">
+    <div class="admin-survey-div" *ngFor="let data of data">
       <div class="admin-survey-data-div">
-        <h1 class="admin-survey-title">Title </h1>
-        <h2 class="admin-survey-desc"><span class="divider">|</span>Description</h2>
+        <h1 class="admin-survey-title">{{data.title}} </h1>
+        <h2 class="admin-survey-desc"><span class="divider">|</span>{{data.desc}}</h2>
         <span class="divider">|</span>
       </div>
       <div class="admin-survey-action-btn">
-        <button class="admin-survey-post-btn">Post</button>
-        <button class="admin-survey-edit-btn">Edit</button>
-        <button class="admin-survey-delete-btn">Delete</button>
+        <button class="admin-survey-post-btn" (click)="post()">Post</button>
+        <button class="admin-survey-edit-btn" (click)="edit()">Edit</button>
+        <button class="admin-survey-delete-btn" (click)="delete()">Delete</button>
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import data  from "../../fakeData"
 
 @Component({
   selector: 'app-admin-page',
@@ -7,5 +8,17 @@ import { Component } from '@angular/core';
   standalone: false
 })
 export class AdminPageComponent {
+    data = data
+    
+    post() {
+       console.log("My post is working")
+    }
 
+    delete() {
+      console.log("My delete is working")
+    }
+
+    edit(){
+      console.log("My edit is working")
+    }
 }
