@@ -63,3 +63,8 @@
 .create-survey .save:hover {
     background-color: rgb(35, 155, 35);
 }
+
+button {
+    padding: 10px;
+    margin-left: 20px;
+}
