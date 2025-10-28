@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
 import { SurveyService } from './survey.service';
 import { Observable, switchMap, throwError } from 'rxjs';
 import { response } from '../models/response';
