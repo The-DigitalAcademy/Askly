@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.div-container {
+  background-image: url(https://st2.depositphotos.com/1008971/6542/v/450/depositphotos_65429197-stock-illustration-abstract-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body {
+    background-image: #fdfdfd;
+    color: #111;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+}
+
+.results-title {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 400;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 400;
+  color: #111;
+}
+
+.slogan {
+    font-family: "Brush Script MT";
+}
+
+.profile-btn {
+  font-size: 1.2rem;
+  border-style: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+background-color: #07076E;
+padding: 10px;
+
+}
+
+.profile-btn:hover {
+  background-color: #f5f5f5;
+}
+
+/* Main content */
+.results-container {
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 2px #07076e94;
+  width: 900px;
+  margin: 90px auto;
+  padding: 24px;
+  border: 1px solid #555;
+  background-color: white;
+  text-align: center;
+}
+
+.results-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-bottom: 50px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1.5px solid #555;
+  border-radius: 10px;
+  padding: 12px 18px;
+  background-color: white;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+
+}
+
+.title {
+  font-weight: 400;
+}
+
+.divider {
+  color: #777777;
+}
+
+.view-btn {
+  border: 2px solid #555;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: none;
+  background-color: #07076E;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+}
+
+.view-btn:hover {
+  background-color: #CCCCFF;
+} 

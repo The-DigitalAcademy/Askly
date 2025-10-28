@@ -8,12 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './service/in-memory-data.service';
+import { HeaderComponent } from './header-component/header/header.component';
+import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterPageComponent,
-    FormLogin
+    FormLogin,
+    HeaderComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

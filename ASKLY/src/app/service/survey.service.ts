@@ -39,28 +39,28 @@ export class SurveyService {
   //update a survey
   updateSurvey(Survey: survey): Observable<survey>{
     this.requireCoordinator();
-    return this.http.put<survey>('${this.url}/${this.Survey.id}', Survey);
+    return this.http.put<survey>(`${this.url}/${Survey.id}`, Survey);
   }
 
   //delete a survey
   delete(id: number): Observable<void>{
     this.requireCoordinator();
-    return this.http.delete<void>('${this.url}/${this.id}');
+    return this.http.delete<void>(`${this.url}/${id}`);
   }
 
   //open the survey
   openSurvey(Survey: survey): Observable<survey>{
     this.requireCoordinator();
-    return this.http.patch<survey>('${this.url}/${this.Survey.id}', {
+    return this.http.patch<survey>(`${this.url}/${Survey.id}`, {
       isOpen: true,
       openedAt: new Date().toISOString(),
     });
   }
 
   //close the survey
-  closeSurvey(Survey: survey): Observable<survey>{
+  closeSurvey(survey: survey): Observable<survey>{
     this.requireCoordinator();
-    return this.http.patch<survey>('${this.url}/${this.Survey.id}', {
+    return this.http.patch<survey>(`${this.url}/${survey.id}`, {
       isOpen: false,
       closedAt: new Date().toISOString(),
     });

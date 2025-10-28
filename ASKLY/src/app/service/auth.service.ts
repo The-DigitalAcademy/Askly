@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { user } from '../models/user';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
@@ -30,13 +30,15 @@ export class AuthService {
 
   //login function
   login(email: string, password: string): Observable<user>{
-    return this.http.get<user[]>('${this.url}?email=${email}&password=${password}').pipe(
+    return this.http.get<user[]>(`${this.url}?email=${email}&password=${password}`).pipe(
       //@ts-ignore
       map((users: any) => {
+        console.log("All users: ",users);
         if(users.length === 0)
           throw new Error("User not found");
 
         const currUser = users[0];
+        console.log("Current user: ",currUser);
         localStorage.setItem('current_user', JSON.stringify(currUser));
         return currUser;
       })

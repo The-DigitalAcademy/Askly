@@ -5,7 +5,7 @@ import { FormLogin } from "./login-page/component/form-login/form-login";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  standalone: false,
+  standalone: false
 })
 export class AppComponent {
   title = 'ASKLY';

@@ -37,7 +37,10 @@
     </div>
     <div class="register-btn">
     <button (click)="register()" type="button" class="register">Register</button>
-    
+
+    <div *ngIf="success" class="success">
+      Account Created! You can now <a routerLink="/login">Log In</a>
+    </div>
  </div>
   </form>
 </div>

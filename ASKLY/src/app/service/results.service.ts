@@ -11,10 +11,10 @@ export class ResultsService {
   private readonly url = '/api/results';
   constructor(private readonly http: HttpClient){}
   getResults(surveyID: number): Observable<any>{
-    return this.http.get<any[]>('${this.url}/responses?surveyId=${surveyID}').pipe(
+    return this.http.get<any[]>(`${this.url}/responses?surveyId=${surveyID}`).pipe(
       //@ts-ignore
       map(responses => {
-        return this.http.get<any>('${this.url}/surveys/${surveyID}').pipe(
+        return this.http.get<any>(`${this.url}/surveys/${surveyID}`).pipe(
           //@ts-ignore
           map(survey => {
             return survey.questions.map((q: any) =>{
