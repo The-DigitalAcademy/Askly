@@ -1,0 +1,49 @@
+/* font-family: "EB Garamond", serif;
+   font-family: "Mali", cursive;
+*/
+
+.header-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-name-div {
+    padding: 20px;
+    text-align: center;
+    width: 150px;
+    cursor: pointer;
+}
+
+.app-name {
+    font-family: "EB Garamond", serif;
+}
+
+.app-tagline {
+    font-family: "Mali", cursive;
+    font-style: italic;
+    color: #07076E;
+}
+
+.results-div {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 50px;
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+.results-div h1 {
+    font-weight: normal;
+    font-size: 1.5rem;
+}
+
+.results-div h1:hover {
+    font-size: 1.7rem;
+}
+
+.results-div a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    
+}
