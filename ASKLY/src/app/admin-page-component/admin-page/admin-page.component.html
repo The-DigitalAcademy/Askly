@@ -1,0 +1,25 @@
+<div class="admin">
+  <div class="reroute-btns">
+    <button class="admin-result-btn">Results</button>
+    <button class="admin-profile-btn">Profile</button>
+  </div>
+
+  <div class="create-btn-div">
+    <button class="create-survey-btn">Create Survey</button>
+  </div>
+
+  <div class="admin-surveys-div">
+    <div class="admin-survey-div" *ngFor="let data of data">
+      <div class="admin-survey-data-div">
+        <h1 class="admin-survey-title">{{data.title}} </h1>
+        <h2 class="admin-survey-desc"><span class="divider">|</span>{{data.desc}}</h2>
+        <span class="divider">|</span>
+      </div>
+      <div class="admin-survey-action-btn">
+        <button class="admin-survey-post-btn" (click)="post()">Post</button>
+        <button class="admin-survey-edit-btn" (click)="edit()">Edit</button>
+        <button class="admin-survey-delete-btn" (click)="delete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
