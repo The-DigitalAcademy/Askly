@@ -14,10 +14,12 @@ import { FormLogin } from './login-page/component/form-login/form-login';
 import { FormsModule } from '@angular/forms';
 
 
+import { RegisterPageComponent } from './component/register-page/register-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent,    
+    AppComponent,
+    RegisterPageComponent,    
     FormLogin,
     SurveyComponent,
     SurveyDetailsComponent,
