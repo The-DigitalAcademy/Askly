@@ -9,10 +9,12 @@ import { MainPageComponent } from './components/main-page/main-page/main-page.co
 import { AdminPageComponent } from './admin-page-component/admin-page/admin-page.component';
 
 import { CreateSurveyCompoundComponent } from './create-survey-compound/create-survey-compound.component';
+import { SurveyDetailsComponent } from './survey-details/survey-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SurveyDetailsComponent,
     HeaderComponent,
     ResultsComponent,
     MainPageComponent,
