@@ -8,6 +8,7 @@ import { ResultsComponent } from './results/results.component';
 import { MainPageComponent } from './components/main-page/main-page/main-page.component';
 import { AdminPageComponent } from './admin-page-component/admin-page/admin-page.component';
 
+import { CreateSurveyCompoundComponent } from './create-survey-compound/create-survey-compound.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AdminPageComponent } from './admin-page-component/admin-page/admin-page
     HeaderComponent,
     ResultsComponent,
     MainPageComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    CreateSurveyCompoundComponent
   ],
   imports: [
     BrowserModule,
