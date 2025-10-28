@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header-component/header/header.component';
@@ -11,10 +10,15 @@ import { AdminPageComponent } from './admin-page-component/admin-page/admin-page
 import { CreateSurveyCompoundComponent } from './create-survey-compound/create-survey-compound.component';
 import { SurveyDetailsComponent } from './survey-details/survey-details.component';
 import { SurveyComponent } from './component/survey-fill/survey/survey.component';
+import { FormLogin } from './login-page/component/form-login/form-login';
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,    
+    FormLogin,
     SurveyComponent,
     SurveyDetailsComponent,
     HeaderComponent,
@@ -25,8 +29,10 @@ import { SurveyComponent } from './component/survey-fill/survey/survey.component
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
-  ],
+    AppRoutingModule,
+    FormsModule,
+
+],
   providers: [],
   bootstrap: [AppComponent]
 })
