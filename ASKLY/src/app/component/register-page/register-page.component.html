@@ -1,29 +1,43 @@
-<form #regForm="ngForm" class="create-survey">
+<div class="register-form-div">
+  <form class="register-form">
 
-  <h2>REGISTER</h2>
+    <h2>REGISTER</h2>
 
-  <label>
-    <input [(ngModel)]="newUser.name" type="text" id="name" name="name" placeholder="First Name">
-  </label>
+    <div class="reg-form">
 
-  <label>
-    <input [(ngModel)]="newUser.surname" type="text" id="surname" name="surname" placeholder="Last Name">
-  </label>
+      <div class="input">
+        <label>First Name</label>
+        <input [(ngModel)]="newUser.name" type="text" id="name" name="name" placeholder="First Name" class="inputVal">
+      </div>
 
-  <label>
-    <select [(ngModel)]="newUser.role" id="role" name="role">
-      <option value="coordinator">Coordinator</option>
-      <option value="respondent">Respondent</option>
-    </select>
-  </label>
+      <div class="input">
+        <label>Surname</label>
+        <input [(ngModel)]="newUser.surname" type="text" id="surname" name="surname" placeholder="Last Name" class="inputVal">
+      </div>
 
-  <label>
-    <input [(ngModel)]="newUser.email" type="email" id="email" name="email" placeholder="email">
-  </label>
 
-  <label>
-    <input [(ngModel)]="newUser.password" type="password" id="password" name="password" placeholder="password">
-  </label>
+      <div class="input"><label>Role</label>
+        <select [(ngModel)]="newUser.role" id="role" name="role" class="inputVal">
+          <option value="coordinator">Coordinator</option>
+          <option value="respondent">Respondent</option>
+        </select>
+      </div>
 
-  <button (click)="register()" type="button" value="register" class="save">Register</button>
-</form>
+
+      <div class="input"> <label>Email</label>
+        <input [(ngModel)]="newUser.email" type="email" id="email" name="email" placeholder="email" class="inputVal">
+      </div>
+
+
+      <div class="input"><label>Password</label>
+        <input [(ngModel)]="newUser.password" type="password" id="password" name="password" placeholder="password" class="inputVal">
+      </div>
+
+
+    </div>
+    <div class="register-btn">
+    <button (click)="register()" type="button" class="register">Register</button>
+    
+ </div>
+  </form>
+</div>
