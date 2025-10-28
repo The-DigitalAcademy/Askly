@@ -1,0 +1,77 @@
+<div class="survey-div">
+<div class="survey-container">
+  <div class="survey-title">
+    <h2>SURVEY TITLE</h2>
+    <!-- <h2> {{survey.title }} </h2> -->
+  </div>
+
+  <div class="question-container">
+    <div class="question">
+      <h4> Question 1: </h4>
+    </div>
+    <div class="question-options">
+    <!-- <div *ngFor="let option of options" class="question-options"> -->
+      <label>
+        <input type="checkbox" id="option1" name="option1" value="option1">
+        Option 1
+      </label>
+      <label>
+        <input type="checkbox" id="option2" name="option2" value="option2">
+        Option 2
+      </label>
+      <label>
+        <input type="checkbox" id="option3" name="option3" value="option3">
+        Option 3
+      </label>
+    </div>
+  </div>
+
+  <div class="question-container">
+    <div class="question">
+      <h4> Question 2: </h4>
+    </div>
+
+    <div class="question-options">
+    <!-- <div *ngFor="let option of options" class="question-options"> -->
+      <label>
+        <input type="checkbox" id="option1" name="option1" value="option1">
+        Option 1
+      </label>
+      <label>
+        <input type="checkbox" id="option2" name="option2" value="option2">
+        Option 2
+      </label>
+      <label>
+        <input type="checkbox" id="option3" name="option3" value="option3">
+        Option 3
+      </label>
+    </div>
+  </div>
+
+  <div class="question-container">
+    <div class="question">
+      <h4> Question 3: </h4>
+    </div>
+    <div class="question-options">
+    <!-- <div *ngFor="let option of options" class="question-options"> -->
+      <label>
+        <input type="checkbox" id="option1" name="option1" value="option1">
+        Option 1
+      </label>
+      <label>
+        <input type="checkbox" id="option2" name="option2" value="option2">
+        Option 2
+      </label>
+      <label>
+        <input type="checkbox" id="option3" name="option3" value="option3">
+        Option 3
+      </label>
+    </div>
+  </div>
+
+  <div class="button-sector">
+    <button class="cancelButton" (click)="cancelButton()"> Cancel </button>
+    <button class="submitButton" (click)="submitButton()"> Submit</button>
+  </div>
+</div>
+</div>

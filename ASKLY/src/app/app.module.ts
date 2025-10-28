@@ -10,10 +10,12 @@ import { AdminPageComponent } from './admin-page-component/admin-page/admin-page
 
 import { CreateSurveyCompoundComponent } from './create-survey-compound/create-survey-compound.component';
 import { SurveyDetailsComponent } from './survey-details/survey-details.component';
+import { SurveyComponent } from './component/survey-fill/survey/survey.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SurveyComponent,
     SurveyDetailsComponent,
     HeaderComponent,
     ResultsComponent,
