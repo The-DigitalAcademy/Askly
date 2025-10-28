@@ -5,6 +5,12 @@
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
 }
 
+.div-container {
+  background-image: url(https://st2.depositphotos.com/1008971/6542/v/450/depositphotos_65429197-stock-illustration-abstract-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 body {
     background-image: #fdfdfd;
     color: #111;
@@ -19,9 +25,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #FFFFFF;
   padding: 16px 24px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
 }
@@ -43,17 +47,14 @@ body {
 }
 
 .profile-btn {
-  border: 2px solid #555;
-  background: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
   font-size: 1.2rem;
-    border-style: none;
-    color: white;
-    cursor: pointer;
-     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-style: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 background-color: #07076E;
+padding: 10px;
 
 }
 
