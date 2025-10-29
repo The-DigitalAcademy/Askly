@@ -1,8 +1,15 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
 .div-container {
     height: 100vh;
     background-image: url(https://st2.depositphotos.com/1008971/6542/v/450/depositphotos_65429197-stock-illustration-abstract-background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     width: 100%;
     display: flex;
     align-items: center;
@@ -40,7 +47,7 @@
     margin: 10px 0;
     border: 1px solid black;
     border-radius: 5px;
-    ;
+    
 }
 
 .create-survey button {
@@ -48,8 +55,10 @@
     border-radius: 6px;
     color: white;
     cursor: pointer;
-     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-     background-color: #07076E;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #07076E;
+    padding: 10px;
+    margin-left: 20px;
 }
 
 .create-survey .actions {
@@ -62,9 +71,4 @@
 }
 .create-survey .save:hover {
     background-color: rgb(35, 155, 35);
-}
-
-button {
-    padding: 10px;
-    margin-left: 20px;
 }

@@ -7,17 +7,17 @@
 
       <div class="input">
         <label>First Name</label>
-        <input type="text" id="name" name="name" placeholder="First Name" class="inputVal">
+        <input [(ngModel)]="newUser.name" type="text" id="name" name="name" placeholder="First Name" class="inputVal">
       </div>
 
       <div class="input">
         <label>Surname</label>
-        <input type="text" id="surname" name="surname" placeholder="Last Name" class="inputVal">
+        <input [(ngModel)]="newUser.surname" type="text" id="surname" name="surname" placeholder="Last Name" class="inputVal">
       </div>
 
 
       <div class="input"><label>Role</label>
-        <select id="role" name="role" class="inputVal">
+        <select [(ngModel)]="newUser.role" id="role" name="role" class="inputVal">
           <option value="coordinator">Coordinator</option>
           <option value="respondent">Respondent</option>
         </select>
@@ -25,18 +25,22 @@
 
 
       <div class="input"> <label>Email</label>
-        <input type="email" id="email" name="email" placeholder="email" class="inputVal">
+        <input [(ngModel)]="newUser.email" type="email" id="email" name="email" placeholder="email" class="inputVal">
       </div>
 
 
       <div class="input"><label>Password</label>
-        <input type="password" id="password" name="password" placeholder="password" class="inputVal">
+        <input [(ngModel)]="newUser.password" type="password" id="password" name="password" placeholder="password" class="inputVal">
       </div>
 
 
     </div>
     <div class="register-btn">
-    <button type="button" class="register">Register</button>
+    <button (click)="register()" type="button" class="register">Register</button>
+
+    <div *ngIf="success" class="success">
+      Account Created! You can now <a routerLink="/login">Log In</a>
+    </div>
  </div>
   </form>
 </div>
