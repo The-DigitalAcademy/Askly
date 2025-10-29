@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'create-survey', component: CreateSurveyCompoundComponent },
   { path: 'register', component: RegisterPageComponent},
   { path: 'login', component: FormLogin},
-  // {},
+  { path: 'survey-detail/:id', component: SurveyDetailsComponent},
   // {},
   // {},
   // {},

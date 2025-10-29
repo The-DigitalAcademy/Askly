@@ -12,16 +12,11 @@ export class ResponseService {
   constructor(private readonly http: HttpClient) { }
   private readonly url = '/api/response';
   getBySurveyId(surveyID: number): Observable<response[]>{
-    return this.http.get<response[]>(this.url).pipe(
-      //@ts-ignore
-      map((surveys: survey[]) => {
-        const foundSurvey = surveys.find((s) => s.id === surveyID) ?? null;
-        if(!foundSurvey)
-          throw new Error('Survey does not exist');
-
-        return foundSurvey;
-      })
-    )
-
-  }
+  return this.http.get<response[]>(this.url).pipe(
+    //@ts-ignore
+    map((responses: response[]) => {
+      return responses.filter(r => r.surveyId === surveyID);
+    })
+  );
+}
 }
