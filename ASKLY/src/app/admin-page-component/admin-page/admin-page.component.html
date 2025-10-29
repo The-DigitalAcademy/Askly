@@ -15,7 +15,7 @@
         <span class="divider">|</span>
       </div>
       <div class="admin-survey-action-btn">
-        <button class="admin-survey-post-btn" (click)="post()">Post</button>
+        <button class="admin-survey-post-btn" (click)="post(i)" id="post">{{ data.isOpen ? 'Close' : 'Open' }}</button>
         <button class="admin-survey-edit-btn" routerLink="/create-survey">Edit</button>
         <button class="admin-survey-delete-btn" (click)="deleteItem(data.id, i)">Delete</button>
       </div>

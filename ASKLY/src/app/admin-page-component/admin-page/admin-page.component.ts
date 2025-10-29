@@ -12,18 +12,20 @@ export class AdminPageComponent {
      constructor(private surveyService: SurveyService) {}
      survey = this.surveyService
      data: any[] = [];
+     
    
      ngOnInit() {
-      this.survey.getAll().subscribe((data) =>
+      this.survey.getAll().subscribe((data) => {
           this.data = data
-       )
-     }
-     post() {
-       
+        });}
+
+     post(index: number) {
+      this.data[index].isOpen = !this.data[index].isOpen;
+      let open = this.data[index].isOpen;
     }
 
     deleteItem(id: number, index: number){ {
-      console.log(this.data.splice(index, 1))
+      this.data.splice(index, 1)
     }}
 
     edit(){
