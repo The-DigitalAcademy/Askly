@@ -11,7 +11,7 @@ export class AdminPageComponent {
      constructor(private surveyService: SurveyService) {}
      survey = this.surveyService.getAll()
      data: any[] = [];
-   
+
      ngOnInit() {
       this.survey.subscribe((data) =>
           this.data = data
@@ -22,11 +22,7 @@ export class AdminPageComponent {
     }
 
     delete(id: number){ {
-<<<<<<< HEAD
-      //console.log(this.data.id)//
-=======
       //console.log(this.data.id)
->>>>>>> feature/results-page
       this.surveyService.delete(id)
     }}
 
