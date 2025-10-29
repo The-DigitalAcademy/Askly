@@ -1,7 +1,7 @@
 import { response } from './../models/response';
 import { Injectable } from '@angular/core';
 import { user } from '../models/user';
-import { Observable, map } from 'rxjs';
+import { Observable, map, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,6 @@ export class AuthService {
 
   //accessing the endpoints
   private readonly url = '/api/users';
-  allUsers: user[] = [];
-
   //register function
   register(newUser: user): Observable<user>{
     const registerUser: user = {
@@ -30,30 +28,17 @@ export class AuthService {
   }
 
   //login function
-  login(email: string, password: string): Observable<user>{
-
-    this.getAllUsers().subscribe({
-      next: (response) =>{
-        this.allUsers = response;
-      }
-    })
-
-    console.log("All users: ", this.allUsers);
-
-    //this.allUsers.filter()
-    return this.http.get<user[]>(`${this.url}?email=${email}&password=${password}`).pipe(
-      //@ts-ignore
-      map((users: any) => {
-        console.log("All users: ",users);
-        if(users.length === 0)
-          throw new Error("User not found");
-
-        const currUser = users[0];
-        console.log("Current user: ",currUser);
-        localStorage.setItem('current_user', JSON.stringify(currUser));
-        return currUser;
+  login(email: string, password: string): Observable<user> {
+    return this.getAllUsers().pipe(
+      map((users: user[]) => {
+        const foundUser = users.find((user) => user.email === email && user.password === password) ?? null;
+        if (!foundUser) {
+          throw new Error('User does not exist');
+        }
+        localStorage.setItem('current_user', JSON.stringify(foundUser));
+        return foundUser;
       })
-    )
+    );
   }
 
   //logout
