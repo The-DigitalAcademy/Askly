@@ -22,35 +22,16 @@
     <main class="results-container">
         <h2 class="results-title">Results</h2>
         <div class="results-list">
-            <div class="result-item">
+            <div class="result-item" *ngFor="let data of data">
                 <div class="info">
-                    <span class="title">Title</span>
+                    <span class="title">{{data.title}}</span>
                     <span class="divider">|</span>
-                    <span class="description">Description</span>
+                    <span class="description">{{data.desc}}</span>
                     <span class="divider">|</span>
                 </div>
-                <button class="view-btn" routerLink="/details" >View</button>
+                <button class="view-btn" [routerLink]="['/details/']" >View</button>
             </div>
-
-            <div class="result-item">
-                <div class="info">
-                    <span class="title">Title</span>
-                    <span class="divider">|</span>
-                    <span class="description">Description</span>
-                    <span class="divider">|</span>
-                </div>
-                <button class="view-btn" routerLink="/details" >View</button>
-            </div>
-
-            <div class="result-item">
-                <div class="info">
-                    <span class="title">Title</span>
-                    <span class="divider">|</span>
-                    <span class="description">Description</span>
-                    <span class="divider">|</span>
-                </div>
-                <button class="view-btn" routerLink="/details" >View</button>
-            </div>
+    
         </div>
     </main>
 </div>
