@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router'; 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header-component/header/header.component';
 import { ResultsComponent } from './results/results.component';
@@ -9,19 +10,17 @@ import { AdminPageComponent } from './admin-page-component/admin-page/admin-page
 import { FormLogin } from './login-page/component/form-login/form-login';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './service/in-memory-data.service';
 import { CreateSurveyCompoundComponent } from './create-survey-compound/create-survey-compound.component';
 import { SurveyDetailsComponent } from './survey-details/survey-details.component';
 import { SurveyComponent } from './component/survey-fill/survey/survey.component';
-import { RouterModule } from '@angular/router';
-
 import { RegisterPageComponent } from './component/register-page/register-page.component';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterPageComponent,    
+    RegisterPageComponent,
     FormLogin,
     SurveyComponent,
     SurveyDetailsComponent,
@@ -39,7 +38,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {dataEncapsulation: false}
     ),
-    RouterModule
+    RouterModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

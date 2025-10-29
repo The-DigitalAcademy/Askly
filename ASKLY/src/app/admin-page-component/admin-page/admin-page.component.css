@@ -86,9 +86,16 @@
     color: #07076e54;
     font-size: 1.5;
      white-space: nowrap;
-     overflow: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 500px;
+    max-width: 300px;
+}
+
+.admin-survey-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
 }
 
 .divider {
