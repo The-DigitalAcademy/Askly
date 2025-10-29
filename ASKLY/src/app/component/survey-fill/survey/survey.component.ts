@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SurveyService } from 'src/app/service/survey.service';
 
 @Component({
   selector: 'app-survey',
@@ -6,70 +8,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./survey.component.css']
 })
 export class SurveyComponent {
+  constructor(private surveyService: SurveyService, private route: ActivatedRoute) { }
+  survey = this.surveyService.getAll()
+  options: any[] = [];
+  option: any = {};
 
-  surveyQuestions =  [
-    {
-      id: 1,
-      text: 'Survey One',
-      choices: [{
-        id: 1,
-        text: 'Option 1'
-      },
-      {
-        id: 2,
-        text: 'Option 2'
-      },
-      {
-        id: 3,
-        text: 'Option 3'
-      }]
-    },
-    {
-      id: 1,
-      text: 'Survey Two',
-      choices: [{
-        id: 1,
-        text: 'Option 1'
-      },
-      {
-        id: 2,
-        text: 'Option 2'
-      },
-      {
-        id: 3,
-        text: 'Option 3'
-      }]
-    },
-    {
-      id: 1,
-      text: 'Survey Three',
-      choices: [{
-        id: 1,
-        text: 'Option 1'
-      },
-      {
-        id: 2,
-        text: 'Option 2'
-      },
-      {
-        id: 3,
-        text: 'Option 3'
-      }]
-    }
-  ];
-
-  onCheckedboxChange(selectedItem: any, selectedIndex: number){
-    this.surveyQuestions.forEach((item, index) =>{
-      if (index !== selectedIndex){
-        
-      }
-    })
-  }
-  cancelButton(): void{
-
+  ngOnInit() {
+      this.survey.subscribe((data) => {
+        this.options = data
+        const id = Number(this.route.snapshot.paramMap.get('id')!);
+        this.option = data[id];
+      })
+      
   }
 
-  submitButton(): void{
-
+  res: any = {};
+  submitButton(){
+    
+    alert('Survey Submitted! Thank you for your participation.');
   }
 }

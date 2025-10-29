@@ -7,6 +7,7 @@ import { AdminPageComponent } from './admin-page-component/admin-page/admin-page
 import { CreateSurveyCompoundComponent } from './create-survey-compound/create-survey-compound.component';
 import { RegisterPageComponent } from './component/register-page/register-page.component';
 import { FormLogin } from './login-page/component/form-login/form-login';
+import { SurveyComponent } from './component/survey-fill/survey/survey.component';
 import { MainPageComponent } from './components/main-page/main-page/main-page.component';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'create-survey', component: CreateSurveyCompoundComponent },
   { path: 'register', component: RegisterPageComponent},
   { path: 'login', component: FormLogin},
+  { path: 'survey-fill/:id', component: SurveyComponent},
   { path: 'survey-detail/:id', component: SurveyDetailsComponent},
   // {},
   // {},

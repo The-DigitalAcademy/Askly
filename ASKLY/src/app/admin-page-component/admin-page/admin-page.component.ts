@@ -22,7 +22,6 @@ export class AdminPageComponent {
     }
 
     delete(id: number){ {
-      // console.log(this.data.id)
       this.surveyService.delete(id)
     }}
 

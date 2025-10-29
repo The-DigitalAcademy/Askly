@@ -55,6 +55,8 @@
   flex-direction: column;
   justify-items: stretch;
   margin-bottom: 25px;
+  margin-right: auto;
+  margin-left: 50px;
 }
 
 .button-sector{
