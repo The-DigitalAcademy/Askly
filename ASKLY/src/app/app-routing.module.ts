@@ -10,7 +10,7 @@ import { FormLogin } from './login-page/component/form-login/form-login';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HeaderComponent },
-  { path: 'results', component: ResultsComponent },,
+  { path: 'results', component: ResultsComponent },
   { path: 'admin', component: AdminPageComponent },
   { path: 'create-survey', component: CreateSurveyCompoundComponent },
   { path: 'register', component: RegisterPageComponent},
