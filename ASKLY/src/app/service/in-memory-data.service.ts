@@ -15,7 +15,7 @@ export class InMemoryDataService implements InMemoryDbService{
     const users: user[] = [];
     const responses: response[] = [];
     const survey : survey[] = [
-      {id: 1, title: 'Customer Satisfaction Survey', desc: 'We value your feedback! Please take a moment to complete our customer satisfaction survey.', questions: [], isOpen: true, createdAt: '2024-01-15T10:00:00Z', openedAt: '2024-01-16T00:00:00Z' },
+      {id: 1, title: 'Customer Satisfaction Survey', desc: 'We value your feedback! Please take a moment to complete our customer satisfaction survey.', questions: [{title: "Customer Satisfaction Survey", id: 1, text: "What is an array", choices: [{id: 1 , text: "No"}, {id: 2 , text: "Yes"}]}], isOpen: true, createdAt: '2024-01-15T10:00:00Z', openedAt: '2024-01-16T00:00:00Z' },
       {id: 2, title: 'Employee Engagement Survey', desc: 'Your opinion matters! Help us improve the workplace by participating in our employee engagement survey.', questions: [], isOpen: false, createdAt: '2024-02-01T09:30:00Z', openedAt: '2024-02-02T00:00:00Z', closedAt: '2024-02-10T23:59:59Z' },
       {id: 3, title: 'Product Feedback Survey', desc: 'Tell us what you think about our latest product! Your feedback helps us make better products.', questions: [], isOpen: true, createdAt: '2024-03-05T14:15:00Z', openedAt: '2024-03-06T00:00:00Z' },
     ];
