@@ -6,10 +6,11 @@ import { AdminPageComponent } from './admin-page-component/admin-page/admin-page
 import { CreateSurveyCompoundComponent } from './create-survey-compound/create-survey-compound.component';
 import { RegisterPageComponent } from './component/register-page/register-page.component';
 import { FormLogin } from './login-page/component/form-login/form-login';
+import { MainPageComponent } from './components/main-page/main-page/main-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HeaderComponent },
+  { path: 'home', component: MainPageComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'admin', component: AdminPageComponent },
   { path: 'create-survey', component: CreateSurveyCompoundComponent },
