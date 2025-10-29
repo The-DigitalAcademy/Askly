@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { SurveyService } from '../service/survey.service';
-import { Observable, throwError } from 'rxjs';
 import { ResultsService } from '../service/results.service';
-import { surveyResults } from '../models/surveyResults';
-import { results } from '../models/result';
 import { ActivatedRoute } from '@angular/router';
+
+interface ResultQuestion {
+  questionID: number;
+  questionText: string;
+  answers: { answerID: number; answerText: string; count: number }[];
+}
 
 @Component({
   selector: 'survey-details',
@@ -12,12 +14,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./survey-details.component.css']
 })
 export class SurveyDetailsComponent implements OnInit {
+  results: ResultQuestion[] = [];
+  respondentCount = 0;
 
   constructor(
     private resultsService: ResultsService,
     private readonly route: ActivatedRoute
-  ){}
-  results: results[] = [];
+  ) {}
 
   ngOnInit(): void {
     const surveyIdParam = this.route.snapshot.paramMap.get('id');
@@ -31,14 +34,16 @@ export class SurveyDetailsComponent implements OnInit {
 
   getSurveyDetails(id: number) {
     this.resultsService.getResults(id).subscribe({
-      next: (results) => {
-        console.log(results);
-        this.results = results;
-        return results;
+      next: (data) => {
+        console.log(data);
+        this.results = data.results;
+        this.respondentCount = data.respondentCount;
       },
       error: (err) => {
-        throwError(() => new Error('No survey'))
+        console.log('Error loading results:', err.message);
+        this.results = [];
+        this.respondentCount = 0;
       }
-    })
+    });
   }
 }

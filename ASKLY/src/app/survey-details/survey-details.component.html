@@ -1,22 +1,15 @@
 <div class="results-details">
   <div class="result-div">
     <h2>Results Details</h2>
-    <p class="res">Respondents: 564</p>
+    <p class="res">Respondents: {{respondentCount}}</p>
 
-    <div class="question-box">
-      <p>Question...</p>
-      <ul>
-          <li>Option 1: 34%</li>
-          <li>Option 2: 46%</li>
-          <li>Option 3: 20%</li>
+    <div *ngFor="let result of results" class="question-box">
+      <p>{{result.questionText}}</p>
+      <ul *ngFor="let choice of result.answers">
+          <li>{{choice.answerText }} : {{choice.count}}</li>
       </ul>
     </div>
-    <div class="question-box">
-      <p>Question...</p>
-      <ul>
-        <li>Option 1: 34%</li>
-        <li>Option 2: 46%</li>
-        <li>Option 3: 20%</li>
-      </ul>
-  </div>
+</div>
+<div *ngIf="results.length === 0">
+  <p>No results available. Survey may be open or have no responses.</p>
 </div>
