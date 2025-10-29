@@ -12,28 +12,38 @@
   <h2>Create Survey</h2>
   <div class="inputs">
   <div>
-    <input type="text" placeholder="Survey Title" />
+    <!-- survey title -->
+    <input [(ngModel)]="title" type="text" placeholder="Survey Title" />
     <br />
-    <input type="text" placeholder="Description" />
+    <!-- Description -->
+    <input [(ngModel)]="desc" type="text" placeholder="Description" />
   </div>
 
+  <!-- Questions -->
   <div class="questions">
-    <input type="Text" placeholder="Question" />
-    <button class="add-question">Add Question</button>
-   </div>
+    <input [(ngModel)]="newQuestionText" type="text" placeholder="Question" />
+    <button (click)="addQuestion()" class="add-question">Add Question</button>
+  </div>
 
     <br />
+    <!-- Options -->
     <div class="optionDiv">
-      <input type="text" placeholder="Option" />
-      <button>Add option</button>
+      <input [(ngModel)]="newChoiceText" type="text" placeholder="Option" />
+      <button (click)="addOption()">Add option</button>
     </div>
   </div>
 
-  
+  <!-- buttons -->
 
   <div class="actions">
-    <button class="cancel">Cancel</button>
-    <button class="save">Save</button>
+    <button class="cancel" routerLink="/admin">Cancel</button>
+    <button (click)="submit()" class="save">Save</button>
+  </div>
+  
+<!-- display questions and options -->
+  <div  *ngFor="let question of questions">
+    <h5>{{question.text}}</h5>
+    <h5 *ngFor="let choice of question.choices">{{ choice.text }}</h5>
   </div>
 </div>
 </div>
