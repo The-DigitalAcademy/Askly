@@ -31,7 +31,7 @@ export class FormLogin {
         this.loading = false;
         this.success = true;
         console.log("Login information for...", user);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         this.loading = false;
