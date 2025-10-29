@@ -12,19 +12,20 @@
   <h2>Create Survey</h2>
   <div class="inputs">
   <div>
-    <input type="text" placeholder="Survey Title" />
+    <input [(ngModel)]="title" type="text" placeholder="Survey Title" />
     <br />
     <input type="text" placeholder="Description" />
   </div>
 
   <div class="questions">
-    <button class="add-question">Add Question</button>
+    <input [(ngModel)]="newQuestionText" placeholder="Question" />
+    <button  (click)="addQuestion()" class="add-question">Add Question</button>
   </div>
 
     <br />
     <div class="optionDiv">
-      <input type="text" placeholder="Option" />
-      <button>Add option</button>
+      <input [(ngModel)]="newChoiceText" type="text" placeholder="Option" />
+      <button (click)="addOption()">Add option</button>
     </div>
   </div>
 
@@ -32,7 +33,7 @@
 
   <div class="actions">
     <button class="cancel" routerLink="/admin">Cancel</button>
-    <button class="save" routerLink="/admin">Save</button>
+    <button (click)="submit()" class="save" routerLink="/admin">Save</button>
   </div>
 </div>
 </div>
