@@ -15,8 +15,6 @@ import { InMemoryDataService } from './service/in-memory-data.service';
 import { CreateSurveyCompoundComponent } from './create-survey-compound/create-survey-compound.component';
 import { SurveyDetailsComponent } from './survey-details/survey-details.component';
 import { SurveyComponent } from './component/survey-fill/survey/survey.component';
-
-
 import { RegisterPageComponent } from './component/register-page/register-page.component';
 
 @NgModule({
