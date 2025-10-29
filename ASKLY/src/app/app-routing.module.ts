@@ -11,7 +11,7 @@ import { SurveyComponent } from './component/survey-fill/survey/survey.component
 import { MainPageComponent } from './components/main-page/main-page/main-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', component: MainPageComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'details', component: SurveyDetailsComponent},
@@ -21,9 +21,7 @@ const routes: Routes = [
   { path: 'login', component: FormLogin},
   { path: 'survey-fill/:id', component: SurveyComponent},
   { path: 'survey-detail/:id', component: SurveyDetailsComponent},
-  // {},
-  // {},
-  // {},
+ 
 ];
 
 @NgModule({
