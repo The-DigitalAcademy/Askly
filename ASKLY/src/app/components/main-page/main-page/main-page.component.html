@@ -19,7 +19,7 @@
                 <div>
                     <img class="survey-img" src="https://wpengine.com/wp-content/uploads/2021/05/optimize-images-1024x681.jpg">
                 </div>
-                <a class="survey-link" routerLink="/survey-fill"><div class="survey-main-info">
+                <a class="survey-link" [routerLink]="['/survey-fill', data.id]"><div class="survey-main-info">
                    <h1>{{data.title}}</h1>
                     <p>{{data.desc}}</p>
                 </div></a>
