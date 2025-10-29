@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router'; 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header-component/header/header.component';
 import { ResultsComponent } from './results/results.component';
@@ -38,7 +39,8 @@ import { RegisterPageComponent } from './component/register-page/register-page.c
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {dataEncapsulation: false}
-    )
+    ),
+    RouterModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
