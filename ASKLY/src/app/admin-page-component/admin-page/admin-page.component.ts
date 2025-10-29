@@ -22,7 +22,11 @@ export class AdminPageComponent {
     }
 
     delete(id: number){ {
+<<<<<<< HEAD
       //console.log(this.data.id)//
+=======
+      //console.log(this.data.id)
+>>>>>>> feature/results-page
       this.surveyService.delete(id)
     }}
 
