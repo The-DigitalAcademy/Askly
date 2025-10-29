@@ -21,9 +21,10 @@ export class AdminPageComponent {
         console.log("My post is working")
     }
 
-    delete() {
-      console.log("My delete is working")
-    }
+    delete(id: number){ {
+      console.log(this.data.id)
+      this.surveyService.delete(id)
+    }}
 
     edit(){
       console.log("My edit is working")
