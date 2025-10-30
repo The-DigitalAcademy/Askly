@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResponseService } from './../../../service/response.service';
 import { ActivatedRoute } from '@angular/router';
 import { SurveyService } from 'src/app/service/survey.service';
 import { response } from 'src/app/models/response';
@@ -10,21 +11,22 @@ import { response } from 'src/app/models/response';
 })
 export class SurveyComponent implements OnInit {
 
-  // 1. Data coming from the service 
-  survey = this.surveyService.getAll();   
+  // 1. Data coming from the service
+  survey = this.surveyService.getAll();
   options: any[] = [];
   option: any = {};
 
   // 2. Answer tracking – Map<questionId, choiceId>
   private selected = new Map<number, number>();
 
-  // 3. Final payload 
+  // 3. Final payload
   responses!: response;
-  id = 0;                    
+  id = 0;
 
   constructor(
     private surveyService: SurveyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private responseService: ResponseService
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class SurveyComponent implements OnInit {
   }
 
   // Build the payload exactly as you defined in the model
-  submitButton(): void {
+  submitButton() {
     const answers = Array.from(this.selected.entries()).map(([qID, cID]) => ({
       questionId: qID,
       choiceId: cID
@@ -56,12 +58,18 @@ export class SurveyComponent implements OnInit {
     this.responses = {
       id: 0,
       surveyId: this.id,
-      userId: '',                     
+      userId: '',
       answers: answers,
       submittedAt: new Date().toISOString()
     };
 
-    console.log('Payload ready →', this.responses);
-    alert('Survey Submitted! Thank you for your participation.');
+    return this.responseService.createResponse(this.responses).subscribe({
+      next: (res) => {
+        alert('Survey Submitted! Thank you for your participation.');
+      },
+      error: (err) => {
+        alert('Survey Submission failed! ' + err.message);
+      }
+    });
   }
 }
