@@ -1,24 +1,60 @@
+<!-- src/app/pages/admin-page/admin-page.component.html -->
 <div class="admin">
+
+  <!-- Top Buttons -->
   <div class="reroute-btns">
     <button class="admin-result-btn" routerLink="/results">Results</button>
   </div>
 
   <div class="create-btn-div">
-    <button class="create-survey-btn" routerLink="/create-survey" (click)="isAdmin()">Create Survey</button>
+    <button class="create-survey-btn" routerLink="/create-survey" (click)="isAdmin()">
+      Create Survey
+    </button>
   </div>
 
-  <div class="admin-surveys-div">
-    <div class="admin-survey-div" *ngFor="let data of data; let i = index">
+  <!-- Survey List -->
+  <div class="admin-surveys-div" *ngIf="data.length > 0; else noSurveys">
+    <div class="admin-survey-div" *ngFor="let survey of data; let i = index">
+
+      <!-- Survey Info -->
       <div class="admin-survey-data-div">
-        <h1 class="admin-survey-title">{{data.title}}</h1>
-        <h2 class="admin-survey-desc"><span class="divider">|</span>{{data.desc}}</h2>
-        <span class="divider">|</span>
+        <h1 class="admin-survey-title">{{ survey.title }}</h1>
+        <h2 class="admin-survey-desc">
+          <span class="divider">|</span> {{ survey.desc }}
+        </h2>
+        <span class="status-badge" [class.open]="survey.isOpen" [class.closed]="!survey.isOpen">
+          {{ survey.isOpen ? 'Open' : 'Closed' }}
+        </span>
       </div>
+
+      <!-- Action Buttons -->
       <div class="admin-survey-action-btn">
-        <button class="admin-survey-post-btn" (click)="post(i)" id="post">{{ data.isOpen ? 'Close' : 'Open' }}</button>
-        <button class="admin-survey-edit-btn" routerLink="/create-survey">Edit</button>
-        <button class="admin-survey-delete-btn" (click)="deleteItem(data.id, i)">Delete</button>
+        <button
+          class="admin-survey-post-btn"
+          [class.close-btn]="survey.isOpen"
+          [class.open-btn]="!survey.isOpen"
+          (click)="toggleOpenClose(survey, i - 1)">
+          {{ survey.isOpen ? 'Close' : 'Open' }}
+        </button>
+
+        <button
+          class="admin-survey-edit-btn"
+          [routerLink]="['/create-survey', survey.id -1]">
+          Edit
+        </button>
+
+        <button
+          class="admin-survey-delete-btn"
+          (click)="deleteItem(survey.id - 1, i - 1)">
+          Delete
+        </button>
       </div>
     </div>
   </div>
+
+  <!-- No Surveys Message -->
+  <ng-template #noSurveys>
+    <p class="no-surveys">No surveys available. Create one!</p>
+  </ng-template>
+
 </div>
