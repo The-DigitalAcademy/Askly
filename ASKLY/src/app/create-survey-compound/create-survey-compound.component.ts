@@ -48,16 +48,23 @@ export class CreateSurveyCompoundComponent {
     this.newChoiceText = '';
   }
   submit(){
-    this.survey = {
-      id: 0,
-      title: this.title,
-      desc: this.desc,
-      questions: this.questions,
-      isOpen: false,
-      createdAt: new Date().toISOString()
-    }
-    console.log(this.survey);
+    const surveyToSend: Omit<survey, 'id' | 'createdAt'> = {
+    title: this.title,
+    desc: this.desc,
+    questions: this.questions,
+    isOpen: false
+  };
+    console.log("Survey in the component: ", surveyToSend);
 
-    this.surveyService.createSurvey(this.survey);
+    this.surveyService.createSurvey(surveyToSend).subscribe(
+      {
+        next: (createdSurvey) => {
+          console.log(createdSurvey);
+        },
+        error: (err) => {
+          throwError(() => new Error('Could not create a new survey'));
+        }
+      }
+    );
   }
 }
