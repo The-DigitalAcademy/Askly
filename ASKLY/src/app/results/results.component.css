@@ -16,12 +16,12 @@
 .page-title {
   margin: 0;
   font-size: 1.8rem;
-  color: #212529;
+  color: navy;
 }
 
 .back-btn {
   padding: 0.5rem 1rem;
-  background: #6c757d;
+  background: navy;
   color: white;
   border: none;
   border-radius: 6px;
@@ -37,6 +37,8 @@
 .results-container {
   max-width: 900px;
   margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 2px #07076e94;
 }
 
 .results-list {
@@ -54,11 +56,9 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
 }
 
 .result-card:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
@@ -99,13 +99,12 @@
 
 .view-btn {
   padding: 0.4rem 0.9rem;
-  background: #007bff;
+  background: navy;
   color: white;
   border: none;
   border-radius: 4px;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .view-btn:hover {
