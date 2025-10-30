@@ -7,11 +7,11 @@
         <a href="https://en.wikipedia.org/wiki/Historical_fiction" target="_blank">Historical</a>
     </div>
     <div class="main-page-section">
-        <div class="most-viewed-div">
-            <h1 class="most-viewed-header">Most Viewed Survey</h1>
+        <div class="most-viewed-div" *ngFor="let newData of newData">
+            <h1 class="most-viewed-header">Closed Survey</h1>
             <div class="most-viewed-survey-div">
-                <a class="most-viewed-survey-name">Survey name for example two</a>
-                <p class="most-viewed-survey-status">Closed</p>
+                <a class="most-viewed-survey-name">{{newData.title}}</a>
+                <p class="most-viewed-survey-status" (click)="check()">Closed</p>
              </div>
         </div>
         <div class="open-surveys-div">
