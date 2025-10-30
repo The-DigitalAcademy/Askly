@@ -1,10 +1,5 @@
-<!-- src/app/pages/admin-page/admin-page.component.html -->
-<div class="admin">
 
-  <!-- Top Buttons -->
-  <div class="reroute-btns">
-    <button class="admin-result-btn" routerLink="/results">Results</button>
-  </div>
+<div class="admin">
 
   <div class="create-btn-div">
     <button class="create-survey-btn" routerLink="/create-survey" (click)="isAdmin()">
@@ -12,11 +7,11 @@
     </button>
   </div>
 
-  <!-- Survey List -->
-  <div class="admin-surveys-div" *ngIf="data.length > 0; else noSurveys">
+ 
+  <div class="admin-surveys-div">
     <div class="admin-survey-div" *ngFor="let survey of data; let i = index">
 
-      <!-- Survey Info -->
+      
       <div class="admin-survey-data-div">
         <h1 class="admin-survey-title">{{ survey.title }}</h1>
         <h2 class="admin-survey-desc">
@@ -27,7 +22,7 @@
         </span>
       </div>
 
-      <!-- Action Buttons -->
+     
       <div class="admin-survey-action-btn">
         <button
           class="admin-survey-post-btn"
