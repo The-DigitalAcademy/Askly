@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseService } from './../../../service/response.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SurveyService } from 'src/app/service/survey.service';
 import { response } from 'src/app/models/response';
 
@@ -26,7 +26,8 @@ export class SurveyComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private route: ActivatedRoute,
-    private responseService: ResponseService
+    private responseService: ResponseService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +67,7 @@ export class SurveyComponent implements OnInit {
     return this.responseService.createResponse(this.responses).subscribe({
       next: (res) => {
         alert('Survey Submitted! Thank you for your participation.');
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         alert('Survey Submission failed! ' + err.message);

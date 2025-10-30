@@ -37,6 +37,7 @@ export class RegisterPageComponent {
         this.loading = false;
         this.success = true;
         console.log('Registration for user: ', this.newUser);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         this.loading = false;
