@@ -1,33 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Askly-results</title>
-    <link rel="stylesheet" href="results.component.css">
-</head>
-<body class="div-container">
-    <div>
-    <!-- Header -->
-    
+<!-- src/app/pages/results/results.component.html -->
+<div class="results-page">
 
+  <!-- Header / Title -->
+  <header class="results-header">
+    <h1 class="page-title">Survey Results</h1>
+    <button class="back-btn" routerLink="/admin">Back to Admin</button>
+  </header>
 
-    <!-- Main content -->
-    <main class="results-container">
-        <h2 class="results-title">Results</h2>
-        <div class="results-list">
-            <div class="result-item" *ngFor="let data of data">
-                <div class="info">
-                    <span class="title">{{data.title}}</span>
-                    <span class="divider">|</span>
-                    <span class="description">{{data.desc}}</span>
-                    <span class="divider">|</span>
-                </div>
-                <button class="view-btn" [routerLink]="['/survey-detail', data.id]" >View</button>
-            </div>
+  <!-- Main Content -->
+  <main class="results-container" *ngIf="closedSurveys.length > 0; else noResults">
+    <div class="results-list">
+      <div class="result-card" *ngFor="let survey of closedSurveys">
 
+        <!-- Survey Info -->
+        <div class="survey-info">
+          <h2 class="survey-title">{{ survey.title }}</h2>
+          <p class="survey-desc">
+            <span class="divider">|</span> {{ survey.desc }}
+          </p>
+          <span class="status-badge closed">Closed</span>
         </div>
-    </main>
+
+        <!-- Action -->
+        <div class="action">
+          <button
+            class="view-btn"
+            [routerLink]="['/survey-detail', survey.id]">
+            View Results
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- No Closed Surveys -->
+  <ng-template #noResults>
+    <p class="no-data">No closed surveys with results yet.</p>
+  </ng-template>
+
 </div>
-</body>
-</html>
