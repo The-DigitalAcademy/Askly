@@ -2,9 +2,6 @@
 .admin {
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url(https://st2.depositphotos.com/1008971/6542/v/450/depositphotos_65429197-stock-illustration-abstract-background.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .reroute-btns, .create-btn-div {
