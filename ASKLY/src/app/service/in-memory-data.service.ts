@@ -227,7 +227,8 @@ export class InMemoryDataService implements InMemoryDbService {
     if (collectionName === 'survey' && id) {
       const db = this.loadFromStorage() || {};
       const payload = reqInfo.utils.getJsonBody(reqInfo.req) as survey;
-      db.surveys = (db.surveys || []).map((s: survey) => (s.id === id ? payload : s));
+      const rawID = Number(id);
+      db.surveys = (db.surveys || []).map((s: survey) => (s.id === rawID ? payload : s));
       this.saveToStorage(db);
       return this.respond({ body: payload, status: STATUS.OK }, reqInfo);
     }
@@ -242,7 +243,8 @@ export class InMemoryDataService implements InMemoryDbService {
     if (collectionName === 'survey' && id) {
       const db = this.loadFromStorage() || {};
       const patch = reqInfo.utils.getJsonBody(reqInfo.req);
-      const survey = (db.surveys || []).find((s: survey) => s.id === id);
+      const rawID = Number(id);
+      const survey = (db.surveys || []).find((s: survey) => s.id === rawID);
       if (!survey) return this.respond({ status: STATUS.NOT_FOUND }, reqInfo);
 
       Object.assign(survey, patch);
@@ -257,9 +259,11 @@ export class InMemoryDataService implements InMemoryDbService {
   // ------------------------------------------------------------------
   delete(reqInfo: RequestInfo) {
     const { collectionName, id } = reqInfo;
+    console.log("colletionName: ", collectionName, " id: ", id);
     if (collectionName === 'survey' && id) {
       const db = this.loadFromStorage() || {};
-      db.surveys = (db.surveys || []).filter((s: survey) => s.id !== id);
+      const rawID = Number(id);
+      db.surveys = (db.surveys || []).filter((s: survey) => s.id !== rawID);
       this.saveToStorage(db);
       return this.respond({ status: STATUS.NO_CONTENT }, reqInfo);
     }

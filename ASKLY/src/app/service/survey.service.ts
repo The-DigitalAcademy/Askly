@@ -45,16 +45,10 @@ export class SurveyService {
   //delete a survey
   delete(id: number): Observable<void>{
     this.requireCoordinator();
-    return this.getAll().pipe(
-      //@ts-ignore
-      map((surveys: survey[]) => {
-        const foundSurvey = surveys.find(sur => sur.id === id) ?? null
-        if(!foundSurvey)
-          throw Error('No survey to delete');
 
-        return this.http.delete(`${this.url}/${foundSurvey.id}`);
-      })
-    );
+    return this.http.delete<void>(`${this.url}/${id}`);
+
+
   }
 
   //open the survey
