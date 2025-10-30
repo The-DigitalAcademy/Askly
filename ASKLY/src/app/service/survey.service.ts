@@ -29,10 +29,12 @@ export class SurveyService {
   //create a survey
   createSurvey(Survey: Omit<survey, 'id' | 'createdAt'>): Observable<survey>{
     this.requireCoordinator();
+    console.log(Survey);
     const newSurvey = {
       ...Survey,
       createdAt: new Date().toISOString(),
     };
+    console.log("Survey in the service: ", newSurvey);
     return this.http.post<survey>(this.url, newSurvey);
   }
 

@@ -200,8 +200,10 @@ export class InMemoryDataService implements InMemoryDbService {
         ...payload,
         id: this.genId(db.surveys || []),
       } as survey;
+      console.log("Survey in the db: ", newSurvey)
       db.surveys = [...(db.surveys || []), newSurvey];
       this.saveToStorage(db);
+      console.log(db);
       return this.respond({ body: newSurvey, status: STATUS.CREATED }, reqInfo);
     }
 
