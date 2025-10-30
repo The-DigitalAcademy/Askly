@@ -1,3 +1,4 @@
+import { ResponseService } from './../../../service/response.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SurveyService } from 'src/app/service/survey.service';
@@ -8,7 +9,7 @@ import { SurveyService } from 'src/app/service/survey.service';
   styleUrls: ['./survey.component.css']
 })
 export class SurveyComponent {
-  constructor(private surveyService: SurveyService, private route: ActivatedRoute) { }
+  constructor(private surveyService: SurveyService, private route: ActivatedRoute, private responseService: ResponseService) { }
   survey = this.surveyService.getAll()
   options: any[] = [];
   option: any = {};
@@ -19,12 +20,19 @@ export class SurveyComponent {
         const id = Number(this.route.snapshot.paramMap.get('id')!);
         this.option = data[id];
       })
-      
+
   }
 
   res: any = {};
   submitButton(){
-    
-    alert('Survey Submitted! Thank you for your participation.');
+    /*return this.responseService.createResponse(res).subscribe({
+      next: (res) => {
+        alert('Survey Submitted! Thank you for your participation.');
+      },
+      error: (err) => {
+        alert('Survey Submission failed! ' + err.message);
+      }
+    });*/
+
   }
 }
