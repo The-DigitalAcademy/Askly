@@ -1,74 +1,236 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-}
-.div-container {
-    height: 100vh;
-    background-image: url(https://st2.depositphotos.com/1008971/6542/v/450/depositphotos_65429197-stock-illustration-abstract-background.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.create-survey {
-    padding: 20px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px 2px #07076e94;
-    width: 800px;
-}
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
-    position: sticky;
-    top: 0;
+/* -------------------------------------------------
+   Global page
+   ------------------------------------------------- */
+.page-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.create-survey h2 {
-    color: black;
-    text-align: center;
-}
-.inputs{
-    display: flex;
-    flex-direction: column;
-}
-
-.create-survey input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid black;
-    border-radius: 5px;
-    
+/* -------------------------------------------------
+   Card container
+   ------------------------------------------------- */
+.create-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 12px 40px rgba(7,7,110,.12);
+  max-width: 720px;
+  width: 100%;
+  overflow: hidden;
 }
 
-.create-survey button {
-    border: 2px solid black;
-    border-radius: 6px;
-    color: white;
-    cursor: pointer;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #07076E;
-    padding: 10px;
-    margin-left: 20px;
+/* Header */
+.card-header {
+  background: linear-gradient(135deg, #07076E, #3F51B5);
+  color: #fff;
+  padding: 1.5rem 2rem;
+  text-align: center;
+}
+.card-header h1 { margin: 0; font-size: 1.9rem; }
+.subtitle { margin: .4rem 0 0; opacity: .9; font-size: .95rem; }
+
+/* Form */
+.survey-form { padding: 2rem; }
+
+/* -------------------------------------------------
+   Form fields
+   ------------------------------------------------- */
+.field-group { margin-bottom: 1.5rem; }
+.field-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: .4rem;
+  color: #333;
+}
+.required::after { content: '*'; color: #e74c3c; margin-left: .2rem; }
+
+.text-input,
+.text-area {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: .75rem;
+  font-size: 1rem;
+  transition: border .2s, box-shadow .2s;
+}
+.text-input:focus,
+.text-area:focus {
+  outline: none;
+  border-color: #07076E;
+  box-shadow: 0 0 0 3px rgba(7,7,110,.15);
+}
+.text-area { resize: vertical; }
+
+/* -------------------------------------------------
+   Section styling
+   ------------------------------------------------- */
+.section { margin-bottom: 2rem; }
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #07076E;
+  margin-bottom: .75rem;
 }
 
-.create-survey .actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
+/* -------------------------------------------------
+   Choice builder
+   ------------------------------------------------- */
+.choices-builder {
+  background: #f9f9fc;
+  padding: 1rem;
+  border-radius: .75rem;
+  margin-top: .75rem;
 }
-.create-survey .cancel:hover {
-    background-color: rgb(158, 31, 31);
+.choices-hint { margin: 0 0 .5rem; font-size: .95rem; }
+.choice-row {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  margin-bottom: .5rem;
 }
-.create-survey .save:hover {
-    background-color: rgb(35, 155, 35);
+.choice-input { flex: 1; }
+
+/* -------------------------------------------------
+   Buttons
+   ------------------------------------------------- */
+.btn-primary,
+.btn-secondary,
+.btn-link,
+.btn-icon {
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+}
+.btn-primary {
+  background: #07076E;
+  color: #fff;
+  border: none;
+  border-radius: .75rem;
+  padding: .75rem 1.5rem;
+}
+.btn-primary:hover { background: #05055b; }
+.btn-primary:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+.btn-secondary {
+  background: transparent;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: .75rem;
+  padding: .75rem 1.5rem;
+}
+.btn-secondary:hover { background: #f5f5f5; }
+.btn-link {
+  color: #07076E;
+  background: none;
+  border: none;
+  font-size: .9rem;
+}
+.btn-link:hover { text-decoration: underline; }
+.btn-icon {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.4rem;
+}
+.btn-icon:hover { color: #c0392b; }
+
+.full-width { width: 100%; }
+.mt-3 { margin-top: .75rem; }
+
+/* -------------------------------------------------
+   Preview
+   ------------------------------------------------- */
+.preview-section { background: #fafafa; padding: 1.5rem; border-radius: .75rem; }
+.preview-list { list-style: none; padding: 0; margin: 0; }
+.preview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #fff;
+  padding: 1rem;
+  border-radius: .75rem;
+  margin-bottom: .75rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.05);
+}
+.preview-question strong { display: block; margin-bottom: .4rem; }
+.preview-choices { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .4rem; }
+.choice-chip {
+  background: #e8eaf6;
+  color: #3f51b5;
+  font-size: .8rem;
+  padding: .25rem .6rem;
+  border-radius: 1rem;
+}
+
+/* -------------------------------------------------
+   Actions
+   ------------------------------------------------- */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* -------------------------------------------------
+   Errors
+   ------------------------------------------------- */
+.error-msg {
+  color: #e74c3c;
+  font-size: .85rem;
+  margin-top: .4rem;
+}
+
+/* -------------------------------------------------
+   Responsive
+   ------------------------------------------------- */
+@media (max-width: 600px) {
+  .choice-row { flex-direction: column; }
+  .choice-row button { width: 100%; }
+}
+/* Add to existing CSS */
+
+.answer-type-toggle {
+  display: flex;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+.toggle-btn {
+  flex: 1;
+  padding: .75rem;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: .75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+}
+.toggle-btn.active {
+  background: #07076E;
+  color: white;
+  border-color: #07076E;
+}
+.toggle-btn:hover:not(.active) {
+  background: #e0e0e0;
+}
+
+.open-ended-info {
+  background: #f0f8ff;
+  padding: 1rem;
+  border-radius: .75rem;
+  border-left: 4px solid #07076E;
+  margin-top: .5rem;
+}
+
+.choices-hint {
+  font-size: .9rem;
+  color: #555;
+  margin-bottom: .75rem;
 }

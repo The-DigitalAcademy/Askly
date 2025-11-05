@@ -4,7 +4,6 @@ import {
   InMemoryDbService,
   RequestInfo,
   STATUS,
-  RequestCore,
 } from 'angular-in-memory-web-api';
 import { survey } from '../models/survey';
 import { user } from '../models/user';
@@ -120,6 +119,16 @@ export class InMemoryDataService implements InMemoryDbService {
         ],
         submittedAt: '2024-01-18T09:15:00Z',
       },
+      {
+        id: 3,
+        surveyId: 2,
+        userId: 'u2',
+        answers: [
+          { questionId: 2, choiceId: 6 },
+          { questionId: 3, choiceId: 9 },
+        ],
+        submittedAt: '2024-02-05T14:20:00Z',
+      },
     ];
 
     // ------------------- RESULTS (precomputed) -------------------
@@ -143,41 +152,43 @@ export class InMemoryDataService implements InMemoryDbService {
   }
 
   // ------------------------------------------------------------------
-  // GET – handle collection requests
+  // GET – handle collection and ID requests
   // ------------------------------------------------------------------
   get(reqInfo: RequestInfo) {
-    const { collectionName, id, req } = reqInfo;
+    const { collectionName, id } = reqInfo;
+    const db = this.loadFromStorage() || {};
+    let collection: any[] = [];
 
-    // Collection GET: /api/users, /api/survey, /api/response, /api/results
-    if (!id) {
-      const db = this.loadFromStorage() || {};
-      let body: any[] = [];
-
-      switch (collectionName) {
-        case 'users':
-          body = db.users || [];
-          break;
-        case 'survey':
-          body = db.surveys || [];
-          break;
-        case 'response':
-          body = db.responses || [];
-          break;
-        case 'results':
-          body = db.results || [];
-          break;
-        default:
-          return undefined; // let default handle
-      }
-
-      return reqInfo.utils.createResponse$(() => ({
-        body,
-        status: STATUS.OK,
-      }));
+    // Determine collection
+    switch (collectionName) {
+      case 'users':
+        collection = db.users || [];
+        break;
+      case 'survey':
+        collection = db.surveys || [];
+        break;
+      case 'response':
+        collection = db.responses || [];
+        break;
+      case 'results':
+        collection = db.results || [];
+        break;
+      default:
+        return undefined;
     }
 
-    // GET by ID – let default handle
-    return undefined;
+    // GET by ID: /api/survey/2
+    if (id !== undefined) {
+      const parsedId = this.parseId(id, collection);
+      const item = collection.find((x: any) => x.id === parsedId);
+      if (!item) {
+        return this.respond({ status: STATUS.NOT_FOUND }, reqInfo);
+      }
+      return this.respond({ body: item, status: STATUS.OK }, reqInfo);
+    }
+
+    // GET collection: /api/survey
+    return this.respond({ body: collection, status: STATUS.OK }, reqInfo);
   }
 
   // ------------------------------------------------------------------
@@ -227,7 +238,7 @@ export class InMemoryDataService implements InMemoryDbService {
     if (collectionName === 'survey' && id) {
       const db = this.loadFromStorage() || {};
       const payload = reqInfo.utils.getJsonBody(reqInfo.req) as survey;
-      const rawID = Number(id);
+      const rawID = this.parseId(id, db.surveys || []);
       db.surveys = (db.surveys || []).map((s: survey) => (s.id === rawID ? payload : s));
       this.saveToStorage(db);
       return this.respond({ body: payload, status: STATUS.OK }, reqInfo);
@@ -243,7 +254,7 @@ export class InMemoryDataService implements InMemoryDbService {
     if (collectionName === 'survey' && id) {
       const db = this.loadFromStorage() || {};
       const patch = reqInfo.utils.getJsonBody(reqInfo.req);
-      const rawID = Number(id);
+      const rawID = this.parseId(id, db.surveys || []);
       const survey = (db.surveys || []).find((s: survey) => s.id === rawID);
       if (!survey) return this.respond({ status: STATUS.NOT_FOUND }, reqInfo);
 
@@ -259,10 +270,9 @@ export class InMemoryDataService implements InMemoryDbService {
   // ------------------------------------------------------------------
   delete(reqInfo: RequestInfo) {
     const { collectionName, id } = reqInfo;
-    console.log("colletionName: ", collectionName, " id: ", id);
     if (collectionName === 'survey' && id) {
       const db = this.loadFromStorage() || {};
-      const rawID = Number(id);
+      const rawID = this.parseId(id, db.surveys || []);
       db.surveys = (db.surveys || []).filter((s: survey) => s.id !== rawID);
       this.saveToStorage(db);
       return this.respond({ status: STATUS.NO_CONTENT }, reqInfo);
@@ -273,8 +283,17 @@ export class InMemoryDataService implements InMemoryDbService {
   // ------------------------------------------------------------------
   // Helper: genId
   // ------------------------------------------------------------------
-  genId<T extends { id: any }>(collection: T[]): any {
-    return collection.length > 0 ? Math.max(...collection.map(i => i.id)) + 1 : 1;
+  private genId<T extends { id: any }>(collection: T[]): any {
+    return collection.length > 0 ? Math.max(...collection.map(i => typeof i.id === 'string' ? parseInt(i.id) : i.id)) + 1 : 1;
+  }
+
+  // ------------------------------------------------------------------
+  // Helper: parseId
+  // ------------------------------------------------------------------
+  private parseId(id: string | number, collection: any[]): any {
+    if (collection.length === 0) return id;
+    const sampleId = collection[0].id;
+    return typeof sampleId === 'string' ? id.toString() : Number(id);
   }
 
   // ------------------------------------------------------------------
@@ -293,26 +312,28 @@ export class InMemoryDataService implements InMemoryDbService {
     questions: question[],
     choices: choice[]
   ): results[] {
-    const questionMap = new Map(questions.map(q => [q.id, q]));
-    const choiceMap = new Map(choices.map(c => [c.id, c]));
-
     const resultMap = new Map<number, results>();
 
+    // Initialize results for closed surveys only
     surveys
       .filter(s => !s.isOpen)
-      .flatMap(s => s.questions)
-      .forEach(q => {
-        resultMap.set(q.id, {
-          questionID: q.id,
-          questionText: q.text,
-          answers: q.choices.map(ch => ({
-            answerID: ch.id,
-            answerText: ch.text,
-            count: 0,
-          })),
+      .forEach(survey => {
+        survey.questions.forEach(q => {
+          if (!resultMap.has(q.id)) {
+            resultMap.set(q.id, {
+              questionID: q.id,
+              questionText: q.text,
+              answers: q.choices.map(ch => ({
+                answerID: ch.id,
+                answerText: ch.text,
+                count: 0,
+              })),
+            });
+          }
         });
       });
 
+    // Count responses
     responses.forEach(resp => {
       const survey = surveys.find(s => s.id === resp.surveyId);
       if (!survey || survey.isOpen) return;

@@ -1,34 +1,37 @@
-<div class="header-div">
-  <div class="app-name-div">
-    <h1 class="app-name">Askly</h1>
-    <a routerLink="/home" routerLinkActive="active">
-      <p class="app-tagline">"Data That Speaks"</p>
-    </a>
-    <!-- User Greeting (if logged in) -->
-    <span *ngIf="currentUser" class="user-greeting">
-      Welcome, {{ currentUser.name }}
-    </span>
+<header class="app-header">
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo" routerLink="/home">
+      <h1>Askly</h1>
+      <p>"Data That Speaks"</p>
+    </div>
+
+    <!-- Desktop Nav -->
+    <nav class="nav-desktop">
+      <a *ngIf="isCoordinator" routerLink="/results" routerLinkActive="active">Results</a>
+      <a *ngIf="isCoordinator" routerLink="/admin" routerLinkActive="active">Admin</a>
+      <a *ngIf="currentUser; else loginBtn" (click)="logout()">Logout</a>
+      <ng-template #loginBtn>
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+      </ng-template>
+      <span *ngIf="currentUser" class="user-greeting">
+        Hi, {{ currentUser.name }}!
+      </span>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
+      Menu
+    </button>
   </div>
 
-  <div class="results-div">
-    <!-- Role-based Links -->
-    <a *ngIf="isCoordinator" routerLink="/results" routerLinkActive="active">
-      <h1>Results</h1>
-    </a>
-    <a *ngIf="isCoordinator" routerLink="/admin" routerLinkActive="active">
-      <h1>Admin</h1>
-    </a>
-
-    <!-- Auth Links -->
-    <ng-container *ngIf="currentUser; else loginLink">
-      <a (click)="logout()">
-      <h1>Logout</h1>
-    </a>
-    </ng-container>
-    <ng-template #loginLink>
-      <a routerLink="/login" routerLinkActive="active">
-        <h1>Login</h1>
-      </a>
+  <!-- Mobile Nav -->
+  <nav class="nav-mobile" [class.open]="menuOpen">
+    <a *ngIf="isCoordinator" routerLink="/results" (click)="closeMenu()">Results</a>
+    <a *ngIf="isCoordinator" routerLink="/admin" (click)="closeMenu()">Admin</a>
+    <a *ngIf="currentUser; else mobileLogin" (click)="logout(); closeMenu()">Logout</a>
+    <ng-template #mobileLogin>
+      <a routerLink="/login" (click)="closeMenu()">Login</a>
     </ng-template>
-  </div>
-</div>
+  </nav>
+</header>

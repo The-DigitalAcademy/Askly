@@ -1,15 +1,86 @@
-<div class="results-details">
-  <div class="result-div">
-    <h2>Results Details</h2>
-    <p class="res">Respondents: {{respondentCount}}</p>
+<!-- Custom Branded Spinner -->
+<ngx-spinner
+  name="surveySpinner"
+  bdColor="rgba(7, 7, 110, 0.9)"
+  size="large"
+  color="#ffffff"
+  type="ball-spin-fade-rotating"
+  [fullScreen]="true">
+  <p style="color: white; margin-top: 20px; font-size: 1.2rem;">Loading results...</p>
+</ngx-spinner>
 
-    <div *ngFor="let result of results" class="question-box">
-      <p>{{result.questionText}}</p>
-      <ul *ngFor="let choice of result.answers">
-          <li>{{choice.answerText }} : {{choice.count}}</li>
-      </ul>
+<div class="results-container">
+  <!-- Header -->
+  <header class="results-header">
+    <h1>Survey Results</h1>
+    <p class="respondent-count">
+      <strong>{{ respondentCount }}</strong> 
+      {{ respondentCount === 1 ? 'respondent' : 'respondents' }}
+    </p>
+  </header>
+
+  <!-- View Toggle Switch -->
+  <div class="view-toggle">
+    <button 
+      [class.active]="viewMode === 'text'" 
+      (click)="viewMode = 'text'"
+      class="toggle-btn">
+      <i class="icon">List</i> Text
+    </button>
+    <button 
+      [class.active]="viewMode === 'chart'" 
+      (click)="viewMode = 'chart'"
+      class="toggle-btn">
+      <i class="icon">Bar Chart</i> Chart
+    </button>
+  </div>
+
+  <!-- Results Grid -->
+  <div class="results-grid" *ngIf="results.length > 0; else noData">
+    <div 
+      *ngFor="let q of results" 
+      class="result-card"
+      [class.chart-mode]="viewMode === 'chart'">
+
+      <!-- Question Title -->
+      <div class="question-header">
+        <h3>{{ q.questionText }}</h3>
+      </div>
+
+      <!-- Text View -->
+      <div class="text-view" *ngIf="viewMode === 'text'">
+        <ul class="answer-list">
+          <li *ngFor="let a of q.answers" class="answer-item">
+            <span class="answer-label">{{ a.answerText }}</span>
+            <span class="answer-count">{{ a.count }}</span>
+            <div class="progress-bar">
+              <div 
+                class="progress-fill" 
+                [style.width.%]="getPercentage(a.count, respondentCount)">
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Chart View -->
+      <div class="chart-view" *ngIf="viewMode === 'chart'">
+        <canvas 
+          baseChart
+          [data]="chartDataFor(q)"
+          [options]="barChartOptions"
+          [type]="barChartType">
+        </canvas>
+      </div>
     </div>
-</div>
-<div *ngIf="results.length === 0">
-  <p>No results available. Survey may be open or have no responses.</p>
+  </div>
+
+  <!-- No Data -->
+  <ng-template #noData>
+    <div class="empty-state">
+      <div class="empty-icon">Empty Chart</div>
+      <h3>No responses yet</h3>
+      <p>This survey is either open or has no submissions.</p>
+    </div>
+  </ng-template>
 </div>

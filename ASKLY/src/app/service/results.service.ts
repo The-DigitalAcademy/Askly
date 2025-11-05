@@ -1,55 +1,60 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, switchMap, throwError, map } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { SurveyService } from './survey.service';
-import { survey } from '../models/survey';
 import { ResponseService } from './response.service';
-import { surveyResults } from '../models/surveyResults';
+import { survey } from '../models/survey';
 import { response } from '../models/response';
+import { surveyResults } from '../models/surveyResults';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResultsService {
   private readonly url = '/api/results';
-  foundClosedSurveys: survey[] = [];
+
   constructor(
     private readonly http: HttpClient,
     private readonly surveyService: SurveyService,
     private readonly responseService: ResponseService
-  ){}
+  ) {}
 
-  //GET ALL CLOSED SURVEYS
-  getAllSurveys(): Observable<survey[]>{
+  /**
+   * Get all CLOSED surveys
+   */
+  getAllSurveys(): Observable<survey[]> {
     return this.surveyService.getAll().pipe(
-      //@ts-ignore
-      map((closedSurveys: survey[]) => {
-        closedSurveys.find((cS) => {
-          if(!cS.isOpen)
-            this.foundClosedSurveys.push(cS);
-        });
-        return this.foundClosedSurveys;
-      })
-    )
+      map((surveys: survey[]) => surveys.filter(s => !s.isOpen))
+    );
   }
+
+  /**
+   * Get results for a specific survey by ID
+   */
   getResults(surveyID: number): Observable<{ results: surveyResults; respondentCount: number }> {
-    return this.surveyService.getAll().pipe(
-      map((surveys: survey[]) => {
-        const cSurvey = surveys.find((s) => s.id === surveyID);
-        if (!cSurvey) throw new Error('Survey does not exist');
-        //if (cSurvey.isOpen) throw new Error('Results are only available for closed surveys');
-        return cSurvey;
+    return this.surveyService.getById(surveyID).pipe(
+      switchMap((survey: survey | undefined) => {
+        if (!survey) {
+          return throwError(() => new Error('Survey does not exist'));
+        }
+
+        // Optional: enforce closed survey
+        // if (survey.isOpen) {
+        //   return throwError(() => new Error('Results are only available for closed surveys'));
+        // }
+
+        return this.responseService.getBySurveyId(survey.id).pipe(
+          map((responses: response[]) => {
+            const uniqueRespondents = new Set(responses.map(r => r.userId)).size;
+            return {
+              survey,
+              responses,
+              respondentCount: uniqueRespondents
+            };
+          })
+        );
       }),
-      switchMap((survey: survey) =>
-        this.responseService.getBySurveyId(survey.id).pipe(
-          //@ts-ignore
-          map((responses: response[]) => ({
-            survey,
-            responses,
-            respondentCount: new Set(responses.map(r => r.userId)).size
-          }))
-        )
-      ),
       map(({ survey, responses, respondentCount }) => ({
         results: this.aggregateResults(survey, responses),
         respondentCount
@@ -57,43 +62,48 @@ export class ResultsService {
       catchError(err => throwError(() => err))
     );
   }
+
+  /**
+   * Aggregate responses into structured results
+   */
   private aggregateResults(survey: survey, responses: response[]): surveyResults {
+    // Initialize map: questionId → { text, answers: choiceId → { text, count } }
     const questionMap = new Map<
       number,
       { text: string; answers: Map<number, { text: string; count: number }> }
     >();
 
-    // 1. Initialize all questions + choices
-    for (const q of survey.questions) {
+    // Step 1: Initialize all questions and choices with count = 0
+    for (const question of survey.questions) {
       const answerMap = new Map<number, { text: string; count: number }>();
-      for (const c of q.choices) {
-        answerMap.set(c.id, { text: c.text, count: 0 });
+      for (const choice of question.choices) {
+        answerMap.set(choice.id, { text: choice.text, count: 0 });
       }
-      questionMap.set(q.id, { text: q.text, answers: answerMap });
+      questionMap.set(question.id, { text: question.text, answers: answerMap });
     }
 
-    // 2. Count each answer
+    // Step 2: Count responses
     for (const resp of responses) {
-      for (const a of resp.answers) {
-        const qData = questionMap.get(a.questionId);
+      for (const answer of resp.answers) {
+        const qData = questionMap.get(answer.questionId);
         if (!qData) continue;
-        const choiceData = qData.answers.get(a.choiceId);
-        if (choiceData) choiceData.count++;
+
+        const choiceData = qData.answers.get(answer.choiceId);
+        if (choiceData) {
+          choiceData.count++;
+        }
       }
     }
 
-    // 3. Convert to final format
-    return Array.from(questionMap.entries()).map(([qId, qData]) => ({
-      questionID: qId,
+    // Step 3: Convert to final surveyResults format
+    return Array.from(questionMap.entries()).map(([questionID, qData]) => ({
+      questionID,
       questionText: qData.text,
-      answers: Array.from(qData.answers.entries())
-        .map(([aId, aData]) => ({
-          answerID: aId,
-          answerText: aData.text,
-          count: aData.count
-        }))
-        .filter(a => a.count > 0)   // Hides zero-count answers
+      answers: Array.from(qData.answers.entries()).map(([answerID, aData]) => ({
+        answerID,
+        answerText: aData.text,
+        count: aData.count
+      }))
     }));
   }
-
 }

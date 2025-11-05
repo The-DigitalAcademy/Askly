@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { survey } from '../models/survey';
 
 @Injectable({
@@ -24,6 +24,12 @@ export class SurveyService {
   //get all the surveys
   getAll(): Observable<survey[]>{
     return this.http.get<survey[]>(this.url);
+  }
+
+  getById(id: number): Observable<survey> {
+    return this.http.get<survey>(`${this.url}/${id}`).pipe(
+      catchError(err => throwError(() => err))
+    );
   }
 
   //create a survey

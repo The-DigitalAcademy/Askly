@@ -1,43 +1,106 @@
-<link rel="stylesheet" href="create-survey-compound.component.css" />
+<div class="page-wrapper">
+  <div class="create-card">
 
-<!-- hearder -->
-<div class="div-container">
-<div class="create-survey">
-  <h2>Create Survey</h2>
-  <div class="inputs">
-  <div>
-    <!-- survey title -->
-    <input [(ngModel)]="title" type="text" placeholder="Survey Title" />
-    <br />
-    <!-- Description -->
-    <input [(ngModel)]="desc" type="text" placeholder="Description" />
-  </div>
+    <!-- Header -->
+    <header class="card-header">
+      <h1>Create Survey</h1>
+      <p class="subtitle">Add title, description, and multiple-choice questions.</p>
+    </header>
 
-  <!-- Questions -->
-  <div class="questions">
-    <input [(ngModel)]="newQuestionText" type="text" placeholder="Question" />
-    <button (click)="addQuestion()" class="add-question">Add Question</button>
-  </div>
+    <!-- Form -->
+    <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()" class="survey-form">
 
-    <br />
-    <!-- Options -->
-    <div class="optionDiv">
-      <input [(ngModel)]="newChoiceText" type="text" placeholder="Option" />
-      <button (click)="addOption()">Add option</button>
-    </div>
-  </div>
+      <!-- Title -->
+      <div class="field-group">
+        <label class="field-label required">Survey Title</label>
+        <input type="text" formControlName="title" placeholder="e.g. Customer Feedback" class="text-input" />
+        <p *ngIf="f['title'].touched && f['title'].invalid" class="error-msg">Title is required</p>
+      </div>
 
-  <!-- buttons -->
+      <!-- Description -->
+      <div class="field-group">
+        <label class="field-label">Description (optional)</label>
+        <textarea formControlName="desc" rows="3" placeholder="Explain the purpose..." class="text-area"></textarea>
+      </div>
 
-  <div class="actions">
-    <button class="cancel" routerLink="/admin">Cancel</button>
-    <button (click)="submit()" class="save">Save</button>
+      <!-- Question Builder -->
+      <div class="section">
+        <h3 class="section-title">Add Question</h3>
+
+        <!-- Question Text -->
+        <input
+          type="text"
+          [(ngModel)]="newQuestionText"
+          [ngModelOptions]="{standalone:true}"
+          placeholder="e.g. How satisfied are you?"
+          class="text-input mb-3"
+        />
+
+        <!-- Choices -->
+        <div class="choices-builder">
+          <p class="choices-hint">Add 2–5 answer choices (1+ character each)</p>
+
+          <div class="choice-row" *ngFor="let ch of currentChoices; let i = index">
+            <input
+              type="text"
+              [(ngModel)]="currentChoices[i]"
+              [ngModelOptions]="{standalone:true}"
+              placeholder="Choice {{i + 1}}"
+              class="text-input choice-input"
+            />
+            <button type="button" (click)="removeChoice(i)" class="btn-icon btn-delete">Delete</button>
+          </div>
+
+          <button
+            type="button"
+            (click)="addChoice()"
+            [disabled]="currentChoices.length >= 5"
+            class="btn-link mt-2">
+            + Add choice ({{currentChoices.length}}/5)
+          </button>
+
+          <p *ngIf="choiceError" class="error-msg text-sm mt-2">{{choiceError}}</p>
+        </div>
+
+        <!-- Add Question Button -->
+        <button
+          type="button"
+          (click)="addQuestion()"
+          [disabled]="!isQuestionValid"
+          class="btn-primary full-width mt-4">
+          Add Question
+        </button>
+      </div>
+
+      <!-- Preview -->
+      <div class="section preview-section" *ngIf="questions.length">
+        <h3 class="section-title">
+          Preview ({{questions.length}} {{questions.length === 1 ? 'question' : 'questions'}})
+        </h3>
+        <ol class="preview-list">
+          <li *ngFor="let q of questions; let qi = index" class="preview-item">
+            <div class="preview-question">
+              <strong>{{qi + 1}}. {{q.text}}</strong>
+              <p class="text-sm text-gray-500 mt-1">Multiple choice ({{q.choices.length}} options)</p>
+              <div class="preview-choices">
+                <span *ngFor="let c of q.choices" class="choice-chip">{{c.text}}</span>
+              </div>
+            </div>
+            <button type="button" (click)="removeQuestion(qi)" class="btn-icon btn-delete">Delete</button>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button type="button" routerLink="/admin" class="btn-secondary">Cancel</button>
+        <button
+          type="submit"
+          [disabled]="surveyForm.invalid || questions.length === 0"
+          class="btn-primary">
+          Save Survey
+        </button>
+      </div>
+    </form>
   </div>
-  
-<!-- display questions and options -->
-  <div  *ngFor="let question of questions">
-    <h5>{{question.text}}</h5>
-    <h5 *ngFor="let choice of question.choices">{{ choice.text }}</h5>
-  </div>
-</div>
 </div>

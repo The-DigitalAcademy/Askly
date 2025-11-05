@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router'; 
@@ -16,6 +16,13 @@ import { CreateSurveyCompoundComponent } from './create-survey-compound/create-s
 import { SurveyDetailsComponent } from './survey-details/survey-details.component';
 import { SurveyComponent } from './component/survey-fill/survey/survey.component';
 import { RegisterPageComponent } from './component/register-page/register-page.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgChartsModule } from 'ng2-charts';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -31,6 +38,7 @@ import { RegisterPageComponent } from './component/register-page/register-page.c
     CreateSurveyCompoundComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -38,7 +46,14 @@ import { RegisterPageComponent } from './component/register-page/register-page.c
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {dataEncapsulation: false}
     ),
-    RouterModule 
+    RouterModule,
+    NgxSpinnerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatChipsModule,
+    NgChartsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

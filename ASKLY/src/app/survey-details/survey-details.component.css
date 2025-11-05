@@ -1,72 +1,166 @@
-.div-container {
-    background-image: url(https://st2.depositphotos.com/1008971/6542/v/450/depositphotos_65429197-stock-illustration-abstract-background.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-}
-.navbar {
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
-    position: sticky;
-    top: 0;
-}
-.profile-btn {
-    font-size: 1.2rem;
-    border-style: none;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-background-color: #07076E;
-padding: 10px;
-
-}
-.results-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-.results-details h2 {
-    align-items: center;
-    margin: 20px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.results-details .res {
-    margin-bottom: 30px;
+.results-container {
+  font-family: 'Inter', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  min-height: 100vh;
 }
 
-.result-div {
-  padding: 20px;
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px 2px #07076e94;
-    max-width: 80%;
-    margin: 20px;
-    background-color: white;
-    text-align: center;
-    width: 1000px;
+/* Header */
+.results-header {
+  text-align: center;
+  margin-bottom: 2rem;
 }
-.question-box {
-    border: 1px solid black;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px 2px #07076e1e;;
-    padding: 10px;
-    margin-bottom: 20px;
+.results-header h1 {
+  font-size: 2.5rem;
+  color: #07076E;
+  font-weight: 700;
+}
+.respondent-count {
+  font-size: 1.3rem;
+  color: #555;
+  margin-top: 0.5rem;
 }
 
-.question-box p, .question-box ul {
-    padding: 10px;
+/* Toggle Switch */
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #666;
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.toggle-btn.active {
+  background: #07076E;
+  color: white;
+  border-color: #07076E;
+}
+.toggle-btn .icon {
+  font-weight: bold;
 }
 
-.question-box ul {
-   align-content: center;
-   list-style: none;
+/* Results Grid */
+.results-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+}
+
+/* Result Card */
+.result-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(7, 7, 110, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.result-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 35px rgba(7, 7, 110, 0.15);
+}
+
+.question-header {
+  background: linear-gradient(135deg, #07076E, #3F51B5);
+  color: white;
+  padding: 1.25rem 1.5rem;
+}
+.question-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Text View */
+.text-view {
+  padding: 1.5rem;
+}
+.answer-list {
+  list-style: none;
+}
+.answer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.answer-label {
+  flex: 1;
+  font-weight: 500;
+  color: #333;
+}
+.answer-count {
+  min-width: 40px;
+  text-align: right;
+  font-weight: 700;
+  color: #07076E;
+}
+.progress-bar {
+  flex: 2;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-left: 1rem;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #07076E, #5C6BC0);
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+/* Chart View */
+.chart-view {
+  padding: 1.5rem;
+  height: 300px;
+  position: relative;
+}
+.chart-view canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+}
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.3;
+}
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #444;
 }
